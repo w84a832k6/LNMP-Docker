@@ -17,8 +17,20 @@ services:
             - ./nginx/conf.d:/etc/nginx/conf.d
             - ./nginx/cert:/etc/nginx/cert
             - ./www:/usr/share/nginx/html
+        networks:
+            - frontend
     #php
     php:
         build: ./php
         container_name: php
         restart: always
+        volumes:
+            - ./www:/var/www/html
+            - ./php/config/php.ini:/usr/local/etc/php/php.ini
+            - ./php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
+            - ./php/config/php-fpm.d:/usr/local/etc/php-fpm.d
+        networks:
+            - frontend
+networks:
+    backend:
+    frontend:
