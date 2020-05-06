@@ -30,7 +30,37 @@ services:
             - ./php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
             - ./php/config/php-fpm.d:/usr/local/etc/php-fpm.d
         networks:
+            - backend
             - frontend
+    #MySQL
+    mysql:
+        build: ./mysql
+        ports:
+            - "3306:3306"
+        container_name: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: Canon0228-
+        volumes:
+            - ./mysql/data:/var/lib/mysql
+            - ./mysql/my.cnf:/etc/my.cnf
+        networks:
+            - backend
+    #redis
+    redis:
+        build: ./redis
+        ports:
+            - "6397:6397"
+        volumes:
+            - ./redis/redis.conf:/usr/local/etc/redis.conf
+            - ./redis/data:/usr/local/redis/data
+            - ./redis/log:/usr/local/redis/log
+        networks:
+            - backend
+        restart: always
+        container_name: redis
+
+
 networks:
     backend:
     frontend:
