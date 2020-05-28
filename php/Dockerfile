@@ -7,7 +7,7 @@ ENV PHPREDIS_VERSION 5.0.2
 RUN cd ~ \
     && useradd -s /bin/bash git \
     && apt-get update \
-    && apt-get install -y wget vim \
+    && apt-get install -y wget vim git \
     && wget https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz \
     && tar -zxvf $PHPREDIS_VERSION.tar.gz \
     && mkdir -p /usr/src/php/ext \
